@@ -17,9 +17,9 @@
         <java.version>21</java.version>
         <sonar.version>3.10.0.2594</sonar.version>
         <!-- Configuramos por defecto las propiedades de SonarCloud para evitar errores -->
-        <sonar.projectKey>spring-boot-sonar</sonar.projectKey>
-        <sonar.organization>marcosc12</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.projectKey>marcosc12_spring-boot-sonar</sonar.projectKey>
+<sonar.organization>marcosc12</sonar.organization>
+<sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
