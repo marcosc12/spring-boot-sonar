@@ -1,5 +1,6 @@
 package com.example.mvc.controller;
 
+import com.example.mvc.EmployeeDTO;
 import com.example.mvc.entity.Employee;
 import com.example.mvc.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,16 @@ public class EmployeeController {
         return ResponseEntity.ok(employees);
     }
 
-    @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        Employee savedEmployee = employeeService.createEmployee(employee);
-        return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
-    }
+   @PostMapping
+public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    // Convertimos el DTO a la entidad antes de enviarla al servicio
+    Employee employee = new Employee();
+    employee.setName(employeeDTO.getName());
+    employee.setEmail(employeeDTO.getEmail());
+    employee.setPosition(employeeDTO.getPosition());
+    employee.setSalary(employeeDTO.getSalary());
+
+    Employee savedEmployee = employeeService.createEmployee(employee);
+    return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
+}
 }
