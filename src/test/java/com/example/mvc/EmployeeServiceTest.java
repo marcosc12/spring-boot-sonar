@@ -24,8 +24,13 @@ class EmployeeServiceTest {
 
     @Test
     void testCreateEmployee() {
-        Employee employee = new Employee(1L, "Juan Pérez", "juan@example.com", "IT", "Developer");
-        
+       Employee employee = new Employee();
+employee.setId(1L);
+employee.setName("Juan Pérez");
+employee.setEmail("juan@example.com");
+employee.setDepartment("IT");
+employee.setPosition("Developer");
+
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
         Employee saved = employeeService.createEmployee(employee);
