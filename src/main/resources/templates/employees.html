@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empleados</title>
+</head>
+<body>
+<!-- S (Responsabilidad Única, Single Responsibility): esta vista Thymeleaf muestra datos de
+     empleados y envía acciones del usuario; las peticiones y reglas se resuelven en el
+     controlador y el servicio. -->
+<nav aria-label="Módulos">
+    <a th:href="@{/employees}">Empleados</a>
+    <a th:href="@{/providers}">Proveedores</a>
+    <a th:href="@{/products}">Productos</a>
+    <a th:href="@{/expenses}">Gastos</a>
+    <a th:href="@{/incomes}">Ingresos</a>
+    <a th:href="@{/bank-accounts}">Cuentas bancarias</a>
+</nav>
+<main>
+    <h1>Empleados</h1>
+
+    <p th:if="${successMessage}" th:text="${successMessage}" role="status"></p>
+
+    <section aria-labelledby="create-heading">
+        <h2 id="create-heading">Agregar empleado</h2>
+        <form th:action="@{/employees}" th:object="${employee}" method="post">
+            <p>
+                <label for="name">Nombre</label>
+                <input id="name" type="text" th:field="*{name}" required>
+            </p>
+            <p>
+                <label for="email">Correo electrónico</label>
+                <input id="email" type="email" th:field="*{email}" required>
+            </p>
+            <p>
+                <label for="department">Departamento</label>
+                <input id="department" type="text" th:field="*{department}" required>
+            </p>
+            <p>
+                <label for="position">Cargo</label>
+                <input id="position" type="text" th:field="*{position}" required>
+            </p>
+            <p>
+                <label for="salary">Salario</label>
+                <input id="salary" type="number" min="0" step="0.01" th:field="*{salary}" required>
+            </p>
+            <button type="submit">Guardar empleado</button>
+        </form>
+    </section>
+
+    <section aria-labelledby="list-heading">
+        <h2 id="list-heading">Directorio</h2>
+        <form th:action="@{/employees}" method="get">
+            <label for="department-filter">Departamento</label>
+            <input id="department-filter" type="text" name="department" th:value="${departmentFilter}">
+            <label for="position-filter">Cargo</label>
+            <input id="position-filter" type="text" name="position" th:value="${positionFilter}">
+            <button type="submit">Filtrar</button>
+            <a th:href="@{/employees}">Limpiar</a>
+        </form>
+
+        <p th:if="${#lists.isEmpty(employees)}">No hay empleados para mostrar.</p>
+        <table th:unless="${#lists.isEmpty(employees)}">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Cargo</th>
+                <th scope="col">Salario</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employeeItem : ${employees}">
+                <td th:text="${employeeItem.name}"></td>
+                <td th:text="${employeeItem.email}"></td>
+                <td th:text="${employeeItem.department}"></td>
+                <td th:text="${employeeItem.position}"></td>
+                <td th:text="${employeeItem.salary}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

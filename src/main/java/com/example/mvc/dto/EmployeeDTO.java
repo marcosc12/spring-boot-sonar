@@ -1,4 +1,4 @@
-package com.example.mvc;
+package com.example.mvc.dto;
 
 import lombok.Data;
 
@@ -9,4 +9,3 @@ public class EmployeeDTO {
     private String position;
     private Double salary;
 }
-
